@@ -1,0 +1,21 @@
+CREATE TABLE mapmarks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT DEFAULT '',
+    lat REAL NOT NULL,
+    lng REAL NOT NULL,
+    description TEXT DEFAULT '',
+    image TEXT,
+
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TRIGGER update_mapmarks_updated_at
+BEFORE UPDATE ON mapmarks
+FOR EACH ROW
+BEGIN
+    UPDATE mapmarks
+    SET updated_at = CURRENT_TIMESTAMP
+    WHERE id = NEW.id;
+END;
+
